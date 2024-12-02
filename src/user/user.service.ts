@@ -28,8 +28,14 @@ export class UserService {
     return user;
   }
 
+  async findOneById(id: number) {
+    const user = await this.userRepo.findOneBy({ id })
+    return user;
+  }
+
   async update(id: number, updateUserDto: UpdateUserDto) {
-    const user = await this.userRepo.findOneBy({ id });
+    const user = await this.userRepo.findOneBy({id});
+    console.log(user)
     if(!user) throw new BadRequestException('User not found');
   
     return await this.userRepo.update(id, updateUserDto);

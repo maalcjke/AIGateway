@@ -1,26 +1,27 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Agent } from '../interfaces/agent.abstract';
 import * as fs from 'fs';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class RegistryAgentsService {
-    private static logger = new Logger(RegistryAgentsService.name, { timestamp: true });
-    static registry: Map<string, Agent> = new Map<string, Agent>();
-
-    static loadModule() {
-      try {
-        const applicationMode = String(process.env.NODE_ENV);
-        if(applicationMode.includes('dev')) return this.dynamicModuleLoad();
+  private static logger = new Logger(RegistryAgentsService.name, { timestamp: true });
+  static registry: Map<string, Agent> = new Map<string, Agent>();
   
-        return this.staticModuleLoad();
-      } catch (error) {
-        if(error instanceof Error) {
-            this.logger.error(`Inject agent modules failed: ${error.message}`);
-        }
+  static loadModule() {
+    try {
+      const applicationMode = String(process.env.NODE_ENV);
+      if(applicationMode.includes('dev')) return this.dynamicModuleLoad();
 
-        return [];
+      return this.staticModuleLoad();
+    } catch (error) {
+      if(error instanceof Error) {
+          this.logger.error(`Inject agent modules failed: ${error.message}`);
       }
+
+      return [];
     }
+  }
 
   private static dynamicModuleLoad() {    
     const files = fs.readdirSync('./src/agents/services');

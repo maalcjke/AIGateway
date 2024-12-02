@@ -11,9 +11,9 @@ import { Agent } from '../src/agents/interfaces/agent.abstract';
     const registrations: string[] = [];
 
     const files = fs.readdirSync(inputDir);
-  
+
     files.forEach((file) => {
-      const module = require(`./src/agents/services/${file}`); //Множно тоже вывести в отдельную переменную
+      const module = require(`../src/agents/services/${file}`); //Множно тоже вывести в отдельную переменную
 
       for (const exportedKey in module) {
           const exportedClass = module[exportedKey];

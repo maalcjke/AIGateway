@@ -1,4 +1,4 @@
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { RegistryAgentsService } from './registry/registry.service';
 import { Observable } from 'rxjs';
 import { Agent } from './interfaces/agent.abstract';
@@ -16,7 +16,9 @@ export class AgentsService {
     ) {}
       
     getAvailableAgents() {
-        return Array.from(RegistryAgentsService.registry.keys());
+        const agents: string[] = Array.from(RegistryAgentsService.registry.keys());
+        if(agents.length === 0) throw HttpStatus.NO_CONTENT;
+        return agents;
     }
 
     getAgent(name: string) {

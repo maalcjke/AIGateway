@@ -6,7 +6,7 @@ import { UserModule } from 'src/user/user.module';
 import { TransactionsModule } from 'src/transactions/transactions.module';
 
 @Module({
-  imports: [RegistryAgentsModule.register(), TransactionsModule, UserModule],
+  imports: [RegistryAgentsModule, TransactionsModule, UserModule],
   controllers: [AgentsController],
   providers: [AgentsService],
 })

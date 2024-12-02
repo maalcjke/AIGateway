@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -30,8 +28,6 @@ import { TransactionsModule } from './transactions/transactions.module';
     AgentsModule,
     UserModule, 
     AuthModule,
-    TransactionsModule],
-  controllers: [AppController],
-  providers: [AppService],
+    TransactionsModule]
 })
 export class AppModule {}
