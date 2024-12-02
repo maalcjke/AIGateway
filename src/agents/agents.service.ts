@@ -4,9 +4,13 @@ import { RegistryAgentsService } from './registry/registry.service';
 @Injectable()
 export class AgentsService {
       
-    getAvailableAgents(model: string) {
-        console.log(RegistryAgentsService.registry.keys())
+    getAvailableAgents() {
         return Array.from(RegistryAgentsService.registry.keys());
-      }
+    }
+
+    getAgent(name: string) {
+        if(!RegistryAgentsService.registry.has(name)) return Error(`Agent ${name} not found/not avaible`);
+        return RegistryAgentsService.registry.get(name);
+    }
 
 }

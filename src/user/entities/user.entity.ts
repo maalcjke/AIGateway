@@ -1,4 +1,4 @@
-import { Role } from "src/roles/entities/role.entity";
+import { Transaction } from "src/transactions/entities/transaction.entity";
 import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
@@ -12,12 +12,11 @@ export class User {
     @Column()
     password: string
 
-    @Column()
+    @Column({default: 0})
     balance: number
 
-    @OneToMany(() => Role, role => role.id)
-    @JoinColumn({ name: 'role_id' })
-    role: Role[]
+    @OneToMany(() => Transaction, transaction => transaction.user, { onDelete: "CASCADE" })
+    transactions: Transaction[]
 
     @CreateDateColumn()
     createdAt: Date

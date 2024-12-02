@@ -1,5 +1,10 @@
 import { User } from "src/user/entities/user.entity";
-import { Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+
+export enum TransactionType {
+    REFILL = "refill",
+    WITHDRAW = "withdraw"
+}
 
 @Entity()
 export class Transaction {
@@ -10,5 +15,16 @@ export class Transaction {
     @JoinColumn({ name: 'user_id' })
     user: User
 
-    
+    @Column()
+    amount: number
+
+    @Column({
+        type: "enum",
+        enum: TransactionType,
+        default: TransactionType.REFILL,
+    })
+    type: TransactionType
+
+    @CreateDateColumn()
+    createdAt: Date
 }

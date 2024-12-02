@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { Agent } from './src/agents/interfaces/agent.abstract';
+import { Agent } from '../src/agents/interfaces/agent.abstract';
 //Можно вывести через .env
     //Для более четкой работы можно использовать path.resolve
     const filename: string = 'generated-agent-imports.ts';

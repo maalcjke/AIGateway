@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { AgentsService } from './agents.service';
 
 @Controller('agents')
@@ -6,7 +6,12 @@ export class AgentsController {
   constructor(private readonly agentsService: AgentsService) {}
 
   @Get()
-  getAvailableAgents(@Query('model') model: string) {
-    return this.agentsService.getAvailableAgents(model);
+  getAvailableAgents() {
+    return this.agentsService.getAvailableAgents();
+  }
+
+  @Get(':agent')
+  getAgent(@Param('agent') agent: string) {
+    return this.agentsService.getAgent(agent);
   }
 }
