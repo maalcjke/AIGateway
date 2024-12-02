@@ -18,31 +18,33 @@ export class TransactionsService {
     await queryRunner.connect();
     await queryRunner.startTransaction();
 
+    const payAmount: number = Number(createTransactionDto.amount);
+
     //Создание транзакции
     try {
       //Выполняем первую часть транзакции
       await queryRunner.manager.save(Transaction, {
-        amount: createTransactionDto.amount,
+        amount: payAmount,
         type: createTransactionDto.type,
         user: { id }
       });
       //Выполняем первую часть транзакции
       switch(createTransactionDto.type) { 
         case TransactionType.REFILL:
-          await queryRunner.manager.increment(User, {id}, 'balance', createTransactionDto.amount);
+          await queryRunner.manager.increment(User, {id}, 'balance', payAmount);
           break;
         case TransactionType.WITHDRAW:
-          await queryRunner.manager.decrement(User, {id}, 'balance', createTransactionDto.amount);
+          await queryRunner.manager.decrement(User, {id}, 'balance', payAmount);
           break;
       }
-         
+
       //Ошибок не выявлено - добавляем
       await queryRunner.commitTransaction();
 
       return { message: 'Transaction added' };
     } catch (e) {
       //Если ошибка - откатываем
-      if(e !instanceof Error) throw new BadRequestException('unknow error');;
+      if(e !instanceof Error) throw new BadRequestException('Ошибка при оплате услуги');;
       await queryRunner.rollbackTransaction();
       throw new BadRequestException(e.message);
     } finally {

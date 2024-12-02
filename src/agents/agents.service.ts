@@ -6,7 +6,6 @@ import { UserService } from 'src/user/user.service';
 import { TransactionsService } from 'src/transactions/transactions.service';
 import { TransactionType } from 'src/transactions/entities/transaction.entity';
 import { IUser } from 'src/types/user.type';
-import { CreateTransactionDto } from 'src/transactions/dto/create-transaction.dto';
 
 @Injectable()
 export class AgentsService {
@@ -34,7 +33,7 @@ export class AgentsService {
 
       if(user.balance < await gpt.calculateTokenCost(model, prompt)) {
         throw new BadRequestException(`User ${dataUser.email} not have enough balance`);
-      } else {      
+      } else {         
         await this.transactionsService.create({ 
           amount: await gpt.calculateTokenCost(model, prompt), 
           type: TransactionType.WITHDRAW,
