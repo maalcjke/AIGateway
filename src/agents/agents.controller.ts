@@ -1,7 +1,12 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query, Req, Sse, UseGuards } from '@nestjs/common';
 import { AgentsService } from './agents.service';
+import { Observable } from 'rxjs';
+import { Agent } from './interfaces/agent.abstract';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
-@Controller('agents')
+
+@Controller('models')
+@UseGuards(JwtAuthGuard)
 export class AgentsController {
   constructor(private readonly agentsService: AgentsService) {}
 
@@ -9,9 +14,9 @@ export class AgentsController {
   getAvailableAgents() {
     return this.agentsService.getAvailableAgents();
   }
-
-  @Get(':agent')
-  getAgent(@Param('agent') agent: string) {
-    return this.agentsService.getAgent(agent);
+  
+  @Sse('stream/:agent')
+  sse(@Req() req: any, @Param('agent') agent: string, @Query('prompt') prompt: string): Promise<Observable<String>> {
+    return this.agentsService.getStream(req.user, agent, prompt);
   }
 }
