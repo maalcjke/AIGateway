@@ -1,13 +1,14 @@
 version: '3'
 services:
   apigateway:
-    image: apigateway:latest
+    build:
+      context: .
     container_name: AIGateway
     restart: always
     ports:
       - 3000:3000
-    volumes:
-      - ./.env:/app/.env
+    env_file:
+      - .env
     depends_on:
       - postgres
   postgres:
@@ -15,9 +16,9 @@ services:
     image: postgres:14-alpine
     restart: always
     env_file:
-      - ./.env
+      - .env
     environment:
-      PG_DATA: /var/lib/postgresql/data/
+      POSTGRES_HOST_AUTH_METHOD: "trust"
     ports:
       - 5432:5432
     volumes:
