@@ -1,0 +1,27 @@
+version: '3'
+services:
+  apigateway:
+    image: apigateway:latest
+    container_name: AIGateway
+    restart: always
+    ports:
+      - 3000:3000
+    volumes:
+      - ./.env:/app/.env
+    depends_on:
+      - postgres
+  postgres:
+    container_name: postgres
+    image: postgres:14-alpine
+    restart: always
+    env_file:
+      - ./.env
+    environment:
+      PG_DATA: /var/lib/postgresql/data/
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data/
+
+volumes:
+  pgdata:
