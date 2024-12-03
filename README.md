@@ -3,12 +3,10 @@
 
 - [О том, как все устроено в приложении и как добавлять новые модели](https://github.com/maalcjke/AIGateway/wiki/Как-добавить-новую-модель%3F)
 
-## 📋 Требования  
-
-Перед началом убедитесь, что на вашем компьютере установлены:  
-- [Git](https://git-scm.com/)  
-- [Docker](https://www.docker.com/products/docker-desktop)  
-- [Docker Compose](https://docs.docker.com/compose/install/)  
+**Готовый образ AIGateway + PostgreSQL**  
+   ```dotenv
+   docker pull ghcr.io/maalcjke/aigateway/aigateway:latest
+   ```
 
 ## 🛠️ Как запустить  
 
