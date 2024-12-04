@@ -43,7 +43,7 @@
    [http://localhost:3000](http://localhost:3000) 
    
 
-   Swagger (OpenAPI) находится по адресу:
+   Swagger (OpenAPI) находится по адресу:  
    [http://localhost:3000/docs](http://localhost:3000/docs)
    
 
