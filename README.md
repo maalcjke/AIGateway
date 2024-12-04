@@ -1,8 +1,8 @@
 # 🚀 Стек:
 - NestJS (Typeorm, Swagger, Typescript), PostgreSQL, Docker 
 
-- [Как добавить новую модель](https://github.com/maalcjke/AIGateway/wiki/Как-добавить-новую-модель%3F)
-- [Принцип работы системы](https://github.com/maalcjke/AIGateway/wiki/Как-это-работает%3F)
+[Как добавить новую модель](https://github.com/maalcjke/AIGateway/wiki/Как-добавить-новую-модель%3F)
+/ [Принцип работы системы](https://github.com/maalcjke/AIGateway/wiki/Как-это-работает%3F)
 
 **Готовый образ AIGateway + PostgreSQL**  
    ```dotenv
